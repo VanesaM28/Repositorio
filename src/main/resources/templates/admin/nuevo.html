@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nuevo Autor</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: auto;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #007bff;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        input {
+            background-color: #333;
+            color: white;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Registrar Nuevo Autor</h2>
+        <form th:action="@{/guardar-autor}" method="post">
+            <input type="text" name="nombre" placeholder="Nombre del autor" required />
+            <input type="email" name="email" placeholder="Correo electrónico" required />
+            <input type="password" name="contraseña" placeholder="Contraseña" required />
+            <button type="submit">Guardar Autor</button>
+        </form>
+    </div>
+</body>
+</html>

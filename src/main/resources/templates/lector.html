@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Lector</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: right;
+            box-shadow: 0 2px 5px #000;
+        }
+
+        header h2 {
+            text-align: center;
+            color: #00bfff;
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #2a2a2a;
+        }
+
+        .logout-button {
+            background-color: crimson;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: darkred;
+        }
+
+        .report-form {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px #007bff;
+        }
+
+        .report-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .report-form textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: white;
+            border: 1px solid #444;
+            margin-bottom: 15px;
+        }
+
+        .report-form select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: white;
+            border: 1px solid #444;
+            margin-bottom: 15px;
+        }
+
+        .report-form button {
+            background-color: crimson;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .report-form button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>📚 Bienvenido Lector</h2>
+    <form th:action="@{/logout}" method="get">
+        <button type="submit" class="logout-button">Cerrar sesión</button>
+    </form>
+</header>
+
+<main th:if="${session.usuarioActual != null and session.usuarioActual.rol.nombre.toLowerCase() == 'lector'}">
+    <h3>Libros Disponibles</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="libro : ${libros}">
+                <td th:text="${libro.id}">1</td>
+                <td th:text="${libro.titulo}">Título</td>
+                <td th:text="${libro.autor.nombre}">Autor</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Formulario para Reportar Contenido -->
+    <div class="report-form">
+        <h4>🚨 Reportar Contenido</h4>
+        <form th:action="@{/reportarContenido}" method="post">
+            <div>
+                <label for="contenido">Contenido:</label>
+                <select name="contenidoId" id="contenido" required>
+                    <option th:each="libro : ${libros}" 
+                            th:value="${libro.id}" 
+                            th:text="${libro.titulo}"></option>
+                </select>
+            </div>
+
+            <div>
+                <label for="motivo">Motivo:</label>
+                <select name="motivo" id="motivo" required>
+                    <option value="Inapropiado">Inapropiado</option>
+                    <option value="Violencia">Violencia</option>
+                    <option value="Discriminación">Discriminación</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="descripcion">Descripción:</label>
+                <textarea name="descripcion" id="descripcion" rows="4" placeholder="Explica más sobre el motivo del reporte." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-danger">Reportar</button>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Invitado</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 15px 20px;
+            text-align: right;
+            box-shadow: 0 2px 5px black;
+        }
+
+        .logout-button {
+            background-color: crimson;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: darkred;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00bfff;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 10px #007bff;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #555;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <form th:action="@{/logout}" method="get">
+        <button class="logout-button">Cerrar sesión</button>
+    </form>
+</header>
+
+<h2>📚 Libros Disponibles</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="libro : ${libros}">
+            <td th:text="${libro.id}">1</td>
+            <td th:text="${libro.titulo}">Título</td>
+            <td th:text="${libro.autor.nombre}">Autor</td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contenido Reportado</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reportes de Contenido</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Contenido</th>
+                <th>Motivo</th>
+                <th>Fecha</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reporte : ${reportes}">
+                <td th:text="${reporte.id}"></td>
+                <td th:text="${reporte.contenido}"></td>
+                <td th:text="${reporte.motivo}"></td>
+                <td th:text="${#dates.format(reporte.fecha, 'dd/MM/yyyy')}"></td>
+                <td><a th:href="@{'/eliminar-reporte/' + ${reporte.id}}" style="color: crimson;">Eliminar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
