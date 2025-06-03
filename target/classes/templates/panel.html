@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administrador</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        .panel-container {
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #007bff;
+            max-width: 1000px;
+            margin: auto;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #2a2a2a;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+        }
+        .logout-button {
+            background-color: crimson;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .logout-button:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <div th:if="${session.usuarioActual != null}" class="panel-container">
+        <h2 th:text="'Bienvenido, ' + ${session.usuarioActual.nombre}"></h2>
+        <p><strong>Rol:</strong> <span th:text="${session.usuarioActual.rol}"></span></p>
+
+        <hr style="margin: 20px 0; border-color: #007bff;">
+
+        <!-- Tabla de usuarios -->
+        <h3>👥 Usuarios Registrados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.rol}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- Tabla de contenido reportado -->
+        <h3>🚨 Contenido Reportado</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Motivo</th>
+                    <th>Reportado por</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reporte : ${reportes}">
+                    <td th:text="${reporte.id}"></td>
+                    <td th:text="${reporte.tituloContenido}"></td>
+                    <td th:text="${reporte.motivo}"></td>
+                    <td th:text="${reporte.usuario.nombre}"></td>
+                    <td th:text="${#dates.format(reporte.fecha, 'dd/MM/yyyy')}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form th:action="@{/logout}" method="get">
+            <button type="submit" class="logout-button">Cerrar sesión</button>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Géneros</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        input {
+            width: 300px;
+            background-color: #333;
+            color: white;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>Géneros Literarios</h1>
+
+    <form action="/guardar-genero" method="post">
+        <input type="text" name="nombreGenero" placeholder="Nuevo género" required />
+        <button type="submit">Agregar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr><th>Nombre del Género</th><th>Acción</th></tr>
+        </thead>
+        <tbody>
+            <!-- Datos estáticos (quemados) -->
+            <tr>
+                <td>Dark Romance</td>
+                <td><a href="/eliminar-genero/1" style="color: crimson;">Eliminar</a></td>
+            </tr>
+            <tr>
+                <td>Harry Potter</td>
+                <td><a href="/eliminar-genero/2" style="color: crimson;">Eliminar</a></td>
+            </tr>
+            <tr>
+                <td>El Principito</td>
+                <td><a href="/eliminar-genero/3" style="color: crimson;">Eliminar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
